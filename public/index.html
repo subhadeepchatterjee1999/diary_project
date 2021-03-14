@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <script src="https://kit.fontawesome.com/3e0c6c9ac8.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+    <script type="text/javascript">
+    (() => {
+  const cnv = document.querySelector(`canvas`);
+  const ctx = cnv.getContext(`2d`);
+  let cw, ch, cx, cy;
+
+  function init() {
+      cw = cnv.width = innerWidth * 2;
+      ch = cnv.height = innerHeight * 2;
+      cx = cw / 2;
+      cy = ch / 2;
+  }
+
+  init();
+
+  window.addEventListener(`resize`, init);
+
+
+  const cfg = {
+      bgFillColor: 'rgba(50,50,50,.01)',
+      dirsCount: 6,
+      stepsToTurn: 20,
+      dotSize: 4,
+      dotCount: 300,
+      dotVelocity: 4,
+      distance: 70,
+  }
+
+
+  function drawRect(color, x, y, w, h, shadowColor, shadowBlur, gco) {
+     ctx.globalCompositeOperation = gco;
+     ctx.shadowColor = shadowColor || 'black';
+      ctx.shadowBlur = shadowBlur;
+      ctx.fillStyle = color;
+      ctx.fillRect(x, y, w, h);
+  }
+
+
+  class Dot {
+      constructor() {
+          this.pos = {x: cx, y: cy};
+          this.dir = (Math.random() * 3 | 0) * 2;
+          this.step = 0;
+
+      }
+
+      redrawDot() {
+          let color = '#f9c74f';
+          let size = cfg.dotSize;
+          let blur = 0;
+          let x = this.pos.x - size / 2;
+          let y = this.pos.y - size / 2;
+
+          drawRect(color, x, y, size, size, color, blur);
+      }
+
+      moveDot() {
+          this.step++;
+          this.pos.x += dirstList[this.dir].x * cfg.dotVelocity;
+          this.pos.y += dirstList[this.dir].y * cfg.dotVelocity;
+      }
+
+      changeDir() {
+          if (this.step % cfg.stepsToTurn === 0) {
+              this.dir = Math.random() > .5
+                  ? (this.dir + 1) % cfg.dirsCount
+                  : (this.dir + cfg.dirsCount - 1) % cfg.dirsCount
+          }
+      }
+
+      killDot(id) {
+         let percent = Math.exp(this.step / cfg.distance) * Math.random();
+
+         if (percent > 100) {
+             dotList.splice(id, 1);
+         }
+      }
+  }
+
+  const dirstList = [];
+
+  function createDirs() {
+      for (let i = 0; i < 360; i += 360 / cfg.dirsCount) {
+          let x = Math.cos(i * Math.PI / 180);
+          let y = Math.sin(i * Math.PI / 180);
+          dirstList.push({x: x, y: y})
+      }
+  }
+
+  createDirs();
+
+  let dotList = [];
+  function addDot() {
+     if(dotList.length < cfg.dotCount && Math.random() > .8) {
+        dotList.push(new Dot());
+     }
+  }
+
+  function refreshDots() {
+     dotList.forEach((i, id) => {
+        i.moveDot();
+        i.redrawDot();
+        i.changeDir();
+        i.killDot(id);
+     })
+  }
+
+  let dot = new Dot();
+
+  function loop() {
+      drawRect(cfg.bgFillColor, 0, 0, cw, ch, 0,0);
+      addDot();
+      refreshDots();
+
+      requestAnimationFrame(loop)
+  }
+
+  loop();
+
+})();
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@600&display=swap');
+
+html, body{
+  background-image: none;
+  background-color:black;
+}
+.box {
+  border-radius: 0px 0px 200px 0px;
+
+  height: 100vh;
+  width: 100%;
+  left: 0;
+  background: linear-gradient(202deg, #fffa00, #ffa000, #00e6ff);
+     background-size: 600% 600%;
+
+     -webkit-animation: AnimationName 9s ease infinite;
+     -moz-animation: AnimationName 9s ease infinite;
+     animation: AnimationName 9s ease infinite;
+  }
+  @-webkit-keyframes AnimationName {
+    0%{background-position:36% 0%}
+    50%{background-position:65% 100%}
+    100%{background-position:36% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:36% 0%}
+    50%{background-position:65% 100%}
+    100%{background-position:36% 0%}
+}
+@keyframes AnimationName {
+    0%{background-position:36% 0%}
+    50%{background-position:65% 100%}
+    100%{background-position:36% 0%}
+}
+.input{
+  border-radius: 9999px;
+  border: none;
+  border-color:transparent;
+  margin-right: 20px;
+  padding: 5px;
+  outline: none;
+  font-family: 'Bodoni Moda', serif;
+  text-align: center;
+}
+.div2 { ;
+padding-left: 0;
+}
+.caln{
+  padding-top: 5vh;
+}
+.col-lg-4{
+  padding-left: 0!important;
+}
+p{
+  font-family: 'Bodoni Moda', serif;
+  font-size: 4vh;
+}
+.sp {
+    padding: 0 10px;
+    box-shadow: inset 0 -5vh 0 0 yellow;
+}
+.nice-dates-navigation, .nice-dates-day {
+  color: yellow;
+}
+.col-lg-6{
+  height: 100vh;
+}
+.quotation{
+  font-size: 30px;
+  //margin: 0 auto;
+  quotes: "\201C""\201D""\2018""\2019";
+  padding: 10px 20px;
+  line-height: 1.4;
+}
+.mid_box{
+  padding-top: 20vh;
+
+}
+.col-lg-6{
+
+}
+.quotation:before {
+  content: open-quote;
+  display: inline;
+  height: 0;
+  line-height: 0;
+  left: -10px;
+  position: relative;
+  top: 30px;
+  color: #ccc;
+  font-size: 3em;
+}
+.quotation::after {
+  content: close-quote;
+  display: inline;
+  height: 0;
+  line-height: 0;
+  left: 10px;
+  position: relative;
+  top: 35px;
+  color: #ccc;
+  font-size: 3em;
+}
+footer{
+  margin:0;
+  text-align: right;
+  font-size: 1.5em;
+  font-style: italic;
+  padding-right: 100px;
+}
+.btn_c{
+  background-color:transparent;
+  font-family: 'Bodoni Moda', serif;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  box-shadow:
+    1px 1px 60px black,
+    -1px -1px 60px black;
+}
+.btn_c:hover{
+  background-color:green;
+  color:white;
+}
+.foo{
+  position: absolute;
+    top: 82%;
+    right: 5%;
+    font-size: 6em;
+
+}
+.edited_a{
+  color: yellow;
+}
+.btn{
+  margin-top:0;
+}
+.floating {
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin-left: 30px;
+    margin-top: 5px;
+}
+
+@keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 15px); }
+    100%   { transform: translate(0, -0px); }
+}
